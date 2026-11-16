@@ -1,22 +1,36 @@
 # page.yaml — хаб «Кахетия» (упрощённый шаблон: регион). Черновик каркаса.
 # У Грузии нет уровня «субрегион»: наименования (PDO) лежат прямо в папке региона.
 type: region
+order: 1                       # порядок в списке регионов на странице «Грузия»
 name: Кахетия
 latin: Kakheti
 highlight_deps: ["GE-KA"]      # какой край закрасить на карте Грузии (код ISO)
 summary: >-
   Кахетия — главный винный край Грузии, на востоке страны, в долине реки Алазани между
   Кавказским хребтом и Цив-Гомборским хребтом. В 2025 году здесь собрали около 327 тыс. тонн
-  винограда — почти весь урожай страны (около 340 тыс. т).[1] Большинство грузинских наименований
-  места происхождения — кахетинские.
+  винограда — почти весь урожай страны (около 340 тыс. т).[1] Из 33 грузинских наименований
+  места происхождения 20 — кахетинские.[1]
 draft_note: "Черновик: паспорт региона с цифрами и источниками появится при наполнении (шаг 4 плана)."
 children_title: Наименования места происхождения (PDO)
 planned:
   - {name: Мукузани, latin: Mukuzani}
+  - {name: Киндзмараули, latin: Kindzmarauli}
   - {name: Напареули, latin: Napareuli}
   - {name: Гурджаани, latin: Gurjaani}
-  - {name: Киндзмараули, latin: Kindzmarauli}
   - {name: Вазисубани, latin: Vazisubani}
   - {name: Телиани, latin: Teliani}
+  - {name: Ахашени, latin: Akhasheni}
+  - {name: Манави, latin: Manavi}
+  - {name: Кахети, latin: Kakheti}
+  - {name: Карденахи, latin: Kardenakhi}
+  - {name: Тибаани, latin: Tibaani}
+  - {name: Кварели, latin: Kvareli}
+  - {name: Котехи, latin: Kotekhi}
+  - {name: Хашми Саперави, latin: Khashmi Saperavi}
+  - {name: Ахмета, latin: Akhmeta}
+  - {name: Царапи, latin: Tsarapi}
+  - {name: Ахоеби, latin: Akhoebi}
+  - {name: Маграани Киси, latin: Magraani Kisi}
+  - {name: Зегаани, latin: Zegaani}
 sources:
   - "Национальное агентство вина Грузии. Годовой отчёт 2025 (англ.). [wine.gov.ge](https://wine.gov.ge/En/Files/Download/15579)"   # [1]
