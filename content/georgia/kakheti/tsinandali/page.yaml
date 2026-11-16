@@ -19,8 +19,6 @@ highlight_deps: ["GE-KA"]     # закрасить Кахетию на мини-
 downloads:
   - {title: Полный PDF, file: tsinandali.pdf, main: true, auto: true}
 
-see_also:
-  - {name: Бургёй, note: для сравнения — Франция}
 below_note: подзон нет; зона — 15 сёл Телавского муниципалитета
 
 # -----------------------------------------------------------------------------
@@ -119,14 +117,6 @@ climate:
 # ДИАГРАММЫ
 # -----------------------------------------------------------------------------
 charts:
-  size:
-    type: size_squares
-    items:
-      - [Цинандали, 653, "сырьевая зона, Сакпатенти", true]
-      - [Бургёй (Франция), 1400, "InterLoire", false]
-    caption: Площадь квадрата пропорциональна площади. Для Цинандали это «сырьевая зона» из документа Сакпатенти (год не указан), для Бургёя — виноградники аппелласьона.
-    src: [2, 16]
-
   grapes:
     type: hbars
     title: Сорта в вине Цинандали по своду правил, %
@@ -161,10 +151,8 @@ charts:
     rows:
       - [Цинандали — предел закона, 65, mid, "10 т/га × 650 л/т, пересчёт"]
       - [Цинандали — по данным Сакпатенти, 45.5, red, "4 571 т на 653 га × 650 л/т, пересчёт"]
-      - [Бургёй — предел закона, 55, light, "закон 2023"]
-      - [Бургёй — средняя за 10 лет, 42.5, red2, "до 2016 г."]
-    caption: "Грузинский закон считает урожай в тоннах винограда, французский — в гектолитрах вина. Для сравнения мы пересчитали тонны в гектолитры по пределу выхода сока — 650 л вина из тонны."
-    src: [1, 2, 14, 15]
+    caption: "Грузинский закон считает урожай в тоннах винограда. Чтобы получить привычные гектолитры вина с гектара, мы пересчитали тонны по пределу выхода — 650 л вина из тонны."
+    src: [1, 2]
 
   vintages:
     type: simple_bars
@@ -266,6 +254,3 @@ sources:
   - "Wikipedia. Rkatsiteli. [en.wikipedia.org](https://en.wikipedia.org/wiki/Rkatsiteli)"   # [11]
   - "Wikipedia. Telavi (дороги, достопримечательности). [en.wikipedia.org](https://en.wikipedia.org/wiki/Telavi)"   # [12]
   - "Wikipedia. Rtveli. [en.wikipedia.org](https://en.wikipedia.org/wiki/Rtveli)"   # [13]
-  - "INAO / Минсельхоз Франции. Cahier des charges AOC «Bourgueil», 29.11.2023. [info.agriculture.gouv.fr](https://info.agriculture.gouv.fr/gedei/site/bo-agri/document_administratif-d9333665-1636-44f0-9cca-543837fcd848/telechargement)"   # [14]
-  - "INAO. Note n°926 «AOC Bourgueil — modification du cahier des charges», 14.03.2017. [extranet.inao.gouv.fr](https://extranet.inao.gouv.fr/fichier/Note-926---AOC-Bourgueil-Modif-CDC.pdf)"   # [15]
-  - "InterLoire. «All about Bourgueil». [vinsdeloire.fr](https://www.vinsdeloire.fr/en/loire-wines/bourgueil/all-about-bourgueil)"   # [16]
