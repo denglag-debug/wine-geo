@@ -9,21 +9,39 @@
   или распечатать короткую карточку.</p>
 </section>
 
-<div class="home-grid">
-  <section>
-    <h2>Страны</h2>
-    <div class="kids">
-      {% for c in countries %}
-      <a class="kid" href="{{ c.url }}"><span class="kid-type">Страна</span><b>{{ c.name }}</b>
-        <span class="kid-text">готовых аппелласьонов: {{ c.descendants()|selectattr('type','equalto','aoc')|list|length }} · регионов в планах: {{ (c.data.planned or [])|length }}</span></a>
+{# Каталог стран: слева — список (быстро найти страну, когда их станет 20+),
+   в центре — плитки с силуэтом страны. Красные точки на силуэте — готовые страницы. #}
+<section class="dir">
+  <nav class="dir-nav" aria-label="Страны">
+    <p class="cap">Страны</p>
+    <ul>
+      {% for t in tiles %}
+      <li>{% if t.ready %}<a href="{{ t.url }}">{{ t.name }}<span class="dir-n">{{ t.n }}</span></a>
+          {% else %}<span class="soon">{{ t.name }}<span class="dir-n">скоро</span></span>{% endif %}</li>
       {% endfor %}
-    </div>
+    </ul>
+  </nav>
+  <div class="dir-tiles">
+    {% for t in tiles %}
+    {% if t.ready %}<a class="tile" href="{{ t.url }}">{% else %}<div class="tile soon">{% endif %}
+      <div class="tile-map">{{ t.svg }}</div>
+      <b>{{ t.name }}</b>{% if t.latin %} <i>{{ t.latin }}</i>{% endif %}
+      <span class="tile-text">{% if t.ready %}готово: {{ t.n }} · в планах: {{ t.planned }}{% else %}страница пока не готова{% endif %}</span>
+    {% if t.ready %}</a>{% else %}</div>{% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<div class="home-grid home-grid-2">
+  <section>
     {% if articles %}
     <h2>Новые статьи</h2>
     <div class="kids">
       {% for a in articles %}<a class="kid" href="{{ a.url }}"><span class="kid-type">{{ ru_date(a.date) }}</span><b>{{ a.title }}</b><span class="kid-text">{{ a.summary }}</span></a>{% endfor %}
     </div>
     {% endif %}
+  </section>
+  <section>
     <h2>Недавно обновлено</h2>
     <div class="kids">
       {% for p in recent %}
@@ -32,10 +50,6 @@
       {% endfor %}
     </div>
   </section>
-  {% if home_maps %}<div class="home-maps">
-    {# по одной мини-карте на страну; подпись — только под последней, чтобы не повторять #}
-    {% for c, svg in home_maps %}<figure class="minimap">{{ svg }}{% if loop.last %}<figcaption>Одна точка — один регион, цифра — сколько в нём готовых страниц. Щёлкните, чтобы открыть.</figcaption>{% endif %}</figure>{% endfor %}
-  </div>{% endif %}
 </div>
 
 <section>

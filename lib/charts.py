@@ -597,3 +597,41 @@ def points_map(geo_dir, bbox, points, river_labels=(), title="Карта", regio
                f'<text y="20" text-anchor="middle" font-size="12" font-weight="700" fill="{INK}">С</text></g>')
     out.append("</svg>")
     return "".join(out)
+
+
+def _main_polys(geom, reach=12):
+    """Оставить «материковые» части страны: самый большой многоугольник и всё, что от него
+    не дальше reach градусов (Корсика остаётся, Французская Гвиана и Канары — нет)."""
+    polys = _rings(geom)
+    if not polys:
+        return []
+    def size(p):
+        xs = [pt[0] for pt in p[0]]; ys = [pt[1] for pt in p[0]]
+        return (max(xs) - min(xs)) * (max(ys) - min(ys))
+    big = max(polys, key=size)
+    bx, by = big[0][0]
+    return [p for p in polys if abs(p[0][0][0] - bx) <= reach and abs(p[0][0][1] - by) <= reach]
+
+
+def country_tile(geom, dots=(), title="Страна", W=240, H=160, ready=True):
+    """Силуэт страны для плитки на главной: контур, вписанный в рамку W×H, и маленькие точки
+    готовых страниц (без подписей — подписи на плитке, под картинкой).
+    geom — геометрия страны (GeoJSON), dots — [(долгота, широта)]."""
+    polys = _main_polys(geom)
+    xs = [pt[0] for p in polys for r in p for pt in r]
+    ys = [pt[1] for p in polys for r in p for pt in r]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    c = math.cos(math.radians((y0 + y1) / 2))
+    pad = 10
+    k = min((W - 2 * pad) / ((x1 - x0) * c), (H - 2 * pad) / (y1 - y0))   # масштаб, чтобы влезло целиком
+    ox = (W - (x1 - x0) * c * k) / 2
+    oy = (H - (y1 - y0) * k) / 2
+    P = lambda lon, lat: (ox + (lon - x0) * c * k, oy + (y1 - lat) * k)
+    fill, stroke = (LAND, "#b9ad9f") if ready else ("#f3efe9", "#d6cdc1")
+    out = [_svg_open(W, H, title),
+           f'<path d="{_poly_path(P, polys)}" fill="{fill}" stroke="{stroke}" stroke-width="1.2"/>']
+    for lon, lat in dots:
+        x, y = P(lon, lat)
+        out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="4.5" fill="{RED}" stroke="#fff" stroke-width="1.5"/>')
+    out.append("</svg>")
+    return "".join(out)

@@ -23,6 +23,7 @@ import re
 import shutil
 import sys
 import json
+import yaml
 sys.dont_write_bytecode = True   # не создавать служебные папки __pycache__ рядом с данными
 from collections import defaultdict
 from datetime import date
@@ -301,17 +302,34 @@ def build_cross(countries, pages, articles):
     build_articles(articles, pages)
 
     # --- Главная ------------------------------------------------------------------
-    # По одной мини-карте на каждую страну, у которой есть контур и блок map: в page.yaml.
-    # На карте страны — по точке на регион (а не на каждую AOC), чтобы не было «перебора точек».
-    home_maps = []
+    # Главная: слева — список стран, в центре — плитки с силуэтами стран.
+    # Силуэт берётся из geo/country.geojson страны (подробный контур), а у стран «в планах»,
+    # где своей папки ещё нет, — из общего geo/world.geojson по коду iso.
+    # Список стран «в планах» — в content/world.yaml.
+    world_cfg_path = os.path.join(CONTENT, "world.yaml")
+    world_cfg = yaml.safe_load(open(world_cfg_path, encoding="utf-8")) if os.path.exists(world_cfg_path) else {}
+    world = {f["properties"]["iso"]: f["geometry"]
+             for f in json.load(open(os.path.join(HERE, "geo", "world.geojson"), encoding="utf-8"))["features"]}
+    tiles = []
     for c in countries:
-        cfg = c.data.get("map")
-        dots = group_dots(c, "")
-        if cfg and dots and os.path.exists(os.path.join(c.folder, "geo", "country.geojson")):
-            home_maps.append((c, C.country_map(os.path.join(c.folder, "geo"), dots, cfg,
-                                               title=f"{c.name}: готовые страницы на карте", W=420)))
+        own = os.path.join(c.folder, "geo", "country.geojson")
+        geom = None
+        if os.path.exists(own):
+            g = json.load(open(own, encoding="utf-8"))
+            geom = (g["features"][0] if "features" in g else g)["geometry"]
+        elif c.data.get("iso") in world:
+            geom = world[c.data["iso"]]
+        aoc_pages = [p for p in c.descendants() if p.type == "aoc"]
+        dots = [tuple(p.data["position"]) for p in aoc_pages if p.data.get("position")]
+        tiles.append({"name": c.name, "latin": c.latin, "url": c.url, "ready": True,
+                      "n": len(aoc_pages), "planned": len(c.data.get("planned", [])),
+                      "svg": C.country_tile(geom, dots, title=c.name) if geom else ""})
+    for x in world_cfg.get("planned", []):
+        geom = world.get(x["iso"])
+        tiles.append({"name": x["name"], "latin": x.get("latin", ""), "url": None, "ready": False, "n": 0, "planned": 0,
+                      "svg": C.country_tile(geom, title=x["name"], ready=False) if geom else ""})
     recent = sorted(aocs, key=lambda p: str(p.data.get("updated", "")), reverse=True)[:6]
-    render("home.html", "index.html", 0, countries=countries, home_maps=home_maps, recent=recent,
+    render("home.html", "index.html", 0, countries=countries, tiles=tiles, recent=recent,
            articles=articles[:3],
            n_aoc=len(aocs), n_pages=len(pages), first_sentence=first_sentence, active="")
 
