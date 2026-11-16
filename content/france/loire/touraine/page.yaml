@@ -1,0 +1,15 @@
+# page.yaml — хаб «Турень» (упрощённый шаблон: субрегион). Черновик каркаса.
+type: subregion
+name: Турень
+latin: Touraine
+summary: >-
+  Турень — средняя часть Долины Луары вокруг города Тур. Здесь соседствуют красные вина
+  из Каберне Фран (Бургёй, Шинон) и белые из Шенена (Вувре, Монлуи).
+draft_note: "Черновик: паспорт, карта всех AOC субрегиона и климат появятся при наполнении (шаг 4 плана)."
+children_title: Аппелласьоны
+planned:
+  - {name: Сен-Никола-де-Бургёй, latin: Saint-Nicolas-de-Bourgueil}
+  - {name: Шинон, latin: Chinon}
+  - {name: Вувре, latin: Vouvray}
+  - {name: Монлуи-сюр-Луар, latin: Montlouis-sur-Loire}
+  - {name: Турень (AOC), latin: Touraine}

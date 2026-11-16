@@ -1,0 +1,14 @@
+{#- glossary.html — общий словарь всех терминов. -#}
+{% extends "base.html" %}
+{% block title %}Словарь — {{ SITE_NAME }}{% endblock %}
+{% block body %}
+<p class="kicker">Раздел</p>
+<h1>Словарь</h1>
+<p class="lead">Все термины энциклопедии в одном месте, по алфавиту.</p>
+<dl class="gloss">
+  {% for t in terms %}
+  <dt id="{{ slug(t.term) }}">{{ t.term }}</dt>
+  <dd>{{ t.def }}</dd>
+  {% endfor %}
+</dl>
+{% endblock %}

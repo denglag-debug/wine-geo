@@ -1,0 +1,57 @@
+{#- hub.html — страница-«хаб»: страна, регион или субрегион (упрощённый шаблон). -#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ page.name }} — {{ SITE_NAME }}{% endblock %}
+{% block body %}
+<header class="top">
+  {{ m.crumbs(page, root) }}
+  <p class="kicker">{{ d.kicker or TYPE_NAMES.get(page.type, '') }}</p>
+  <h1>{{ page.name }} {% if page.latin %}<span class="latin">{{ page.latin }}</span>{% endif %}</h1>
+  {{ m.related_box(related, root) }}
+  <nav class="toc noprint" aria-label="Этот регион в разделах сайта">
+    <a href="{{ root }}history.html#{{ path }}">История региона</a>
+    <a href="{{ root }}stats.html#{{ path }}">Статистика региона</a>
+    <a href="{{ root }}articles.html#{{ path }}">Статьи о регионе</a>
+  </nav>
+  {{ m.related_articles(articles, root) }}
+</header>
+
+<section class="short">
+  <h2>Коротко</h2>
+  <div class="hub-top">
+    <div>
+      <p class="lead">{{ summary }}</p>
+      <p class="hub-count">{{ count_line }}</p>
+    </div>
+    {% if hub_map %}<figure class="minimap">{{ hub_map }}<figcaption>Одна точка — один раздел ниже; цифра — сколько в нём готовых аппелласьонов. Щёлкните, чтобы открыть.</figcaption></figure>{% endif %}
+  </div>
+  {% if d.draft_note %}<p class="note">{{ d.draft_note }}</p>{% endif %}
+</section>
+
+<section>
+  <h2>{{ d.children_title or 'Что внутри' }}</h2>
+  {% if page.children %}
+  <div class="kids">
+    {% for c in page.children %}
+    <a class="kid" href="{{ root }}{{ c.url }}">
+      <span class="kid-type">{{ TYPE_NAMES.get(c.type, '') }}</span>
+      <b>{{ c.name }}</b>{% if c.latin %} <i>{{ c.latin }}</i>{% endif %}
+      <span class="kid-text">{{ first_sentence(c.data.summary) }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% if planned %}
+  <p class="cap" style="margin-top:18px">Будут добавлены</p>
+  <div class="kids">
+    {% for p in planned %}<div class="kid planned"><b>{{ p.name }}</b>{% if p.latin %} <i>{{ p.latin }}</i>{% endif %}<span class="kid-text">страница пока не готова</span></div>{% endfor %}
+  </div>
+  {% endif %}
+</section>
+
+{% for sid, title, html in sections %}
+<section id="{{ sid }}"><h2>{{ title }}</h2>{{ html }}</section>
+{% endfor %}
+
+{{ m.sources_list(sources, d) }}
+{% endblock %}

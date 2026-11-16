@@ -1,0 +1,13 @@
+{#- article.html — одна статья. -#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ a.title }} — {{ SITE_NAME }}{% endblock %}
+{% block body %}
+<nav class="crumbs"><a href="{{ root }}index.html">Главная</a> <span>›</span> <a href="{{ root }}articles.html">Статьи</a></nav>
+<p class="kicker">Статья · {{ ru_date(a.date) }}{% if a.tags %} · {{ a.tags|join(', ') }}{% endif %}</p>
+<h1 class="art-h1">{{ a.title }}</h1>
+{% if places %}<p class="say">О местах: {% for p in places %}<a href="{{ root }}{{ p.url }}">{{ p.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+{% if a.summary %}<p class="lead">{{ a.summary }}</p>{% endif %}
+<article class="art">{{ body }}</article>
+{{ m.sources_list(sources, a.data) }}
+{% endblock %}

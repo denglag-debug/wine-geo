@@ -1,0 +1,47 @@
+{#- aoc.html — страница аппелласьона (полный шаблон v1.0). -#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ page.name }} ({{ page.latin }}) — {{ SITE_NAME }}{% endblock %}
+{% block body %}
+<header class="top">
+  {{ m.crumbs(page, root) }}
+  <div class="title-row">
+    <div>
+      <p class="kicker">{{ d.kicker }}</p>
+      <h1>{{ page.name }} <span class="latin">{{ page.latin }}</span></h1>
+      {% if d.pronounce %}<p class="say">{{ d.pronounce }}</p>{% endif %}
+    </div>
+    <div class="actions noprint">
+      {% for f in d.downloads or [] %}
+      <a class="btn{% if not f.main %} ghost{% endif %}" href="{{ f.file }}" download>{{ f.title }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {{ m.related_articles(articles, root) }}
+</header>
+
+{# Оглавление. На широком экране стоит слева от текста и не уезжает при прокрутке,
+   на узком — прячется за кнопкой «Разделы» внизу экрана. Текущий раздел подсвечивается (site.js). #}
+<nav class="side-toc noprint" id="side-toc" aria-label="Разделы страницы">
+  <p class="cap">Разделы</p>
+  {% for sid, t in toc %}<a href="#{{ sid }}">{{ t }}</a>{% endfor %}<a href="#nav-box">Регион рядом</a><a href="#sources">Источники</a>
+</nav>
+<div class="float-btns noprint">
+  <button type="button" class="fbtn" id="toc-btn" aria-controls="side-toc">☰ Разделы</button>
+  <a class="fbtn" id="top-btn" href="#" aria-label="Наверх">↑</a>
+</div>
+
+{% for sid, title, html in sections %}
+<section id="{{ sid }}"{% if sid == 'short' %} class="short"{% endif %}>
+  <h2>{{ title }}</h2>
+  {{ html }}
+</section>
+{% endfor %}
+
+<section id="nav-box" class="noprint">
+  <h2>Регион рядом</h2>
+  {{ m.related_box(related, root) }}
+</section>
+
+{{ m.sources_list(sources, d) }}
+{% endblock %}

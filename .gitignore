@@ -1,0 +1,5 @@
+# Служебные файлы Python и Node — в репозиторий не нужны
+__pycache__/
+*.pyc
+node_modules/
+.DS_Store

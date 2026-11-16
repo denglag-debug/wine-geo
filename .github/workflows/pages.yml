@@ -1,0 +1,34 @@
+# Публикация сайта на GitHub Pages.
+# Что делает: при каждой загрузке (push) в ветку main берёт готовую папку site/
+# и выкладывает её как сайт. Сам сайт собирается заранее командой python3 build.py
+# (вместе с PDF), поэтому здесь ничего не пересобирается — только публикуется.
+name: Публикация сайта
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # кнопка «Run workflow» — опубликовать вручную
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

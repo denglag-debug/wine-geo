@@ -1,0 +1,275 @@
+/* style.css — оформление страницы региона.
+   Цвета заданы переменными (--имя), чтобы их легко было поменять в одном месте. */
+:root{
+  --paper:#fbf8f3; --card:#ffffff; --ink:#1f1a17; --ink2:#5b524b; --muted:#8c837b;
+  --line:#e6dfd6; --wine:#8e1b3a; --wine-soft:#f6e7eb; --plain:#f3efe7;
+  --serif: Georgia, "PT Serif", "Liberation Serif", "Times New Roman", serif;
+  --sans: "Segoe UI", system-ui, -apple-system, Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans)}
+.page{max-width:860px;margin:0 auto;padding:28px 16px 60px}
+a{color:var(--wine)}
+h1,h2,h3,h4{font-family:var(--serif);line-height:1.2;color:var(--ink)}
+h1{font-size:44px;margin:4px 0 6px;font-weight:700}
+h1 .latin{font-size:26px;color:var(--ink2);font-style:italic;font-weight:400;margin-left:8px}
+h2{font-size:28px;margin:48px 0 14px;padding-top:18px;border-top:2px solid var(--wine)}
+h3{font-size:20px;margin:28px 0 10px}
+h4{font-size:16px;margin:0 0 6px}
+p{margin:0 0 12px}
+.muted{color:var(--muted)}
+.crumbs{font-size:14px;color:var(--ink2)}
+.crumbs a{text-decoration:none}
+.crumbs span{color:var(--muted);margin:0 4px}
+.kicker{margin:18px 0 0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--wine);font-weight:700}
+.say{color:var(--ink2);font-size:14px}
+.title-row{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.actions{display:flex;gap:8px;margin-bottom:14px}
+.btn{display:inline-block;padding:10px 16px;border-radius:8px;background:var(--wine);color:#fff;text-decoration:none;
+     font:600 14px var(--sans);border:1px solid var(--wine);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--wine)}
+.related{display:grid;gap:4px;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:8px}
+.rel-tag{display:inline-block;min-width:58px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.short h2{border-top:none;margin-top:28px;padding-top:0}
+.lead{font-size:18px;line-height:1.65}
+.facts3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.facts3>div{background:var(--wine-soft);border-radius:10px;padding:12px 14px;font-size:14.5px;line-height:1.45}
+.passport-wrap{display:grid;grid-template-columns:1fr 250px;gap:16px;align-items:start}
+table{border-collapse:collapse;width:100%}
+.passport{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14.5px}
+.cap{margin:0;text-align:left;font:700 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 0 8px}
+.passport th{width:34%;text-align:left;vertical-align:top;color:var(--ink2);font-weight:600;padding:9px 12px;border-bottom:1px solid var(--line);background:#fcfaf7}
+.passport td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.passport tr:last-child th,.passport tr:last-child td{border-bottom:none}
+.note{font-size:13px;color:var(--muted);line-height:1.5;margin-top:6px}
+table.data{font-size:14.5px;margin:12px 0 16px;background:var(--card);border:1px solid var(--line)}
+table.data th{text-align:left;font-weight:700;color:var(--ink2);background:#f6f1ea;padding:8px 10px;border-bottom:1px solid var(--line)}
+table.data td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.vint td:first-child{font-weight:700;white-space:nowrap}
+figure{margin:16px 0 8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+figure svg{margin:0 auto;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:8px;line-height:1.5}
+.minimap{margin:0;padding:10px}
+.plain{background:var(--plain);border-left:4px solid var(--wine);border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0 18px;font-size:15.5px;line-height:1.6}
+.plain-tag{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--wine);font-weight:700;margin-bottom:4px}
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:15px}
+.card ul{padding-left:18px;margin:6px 0 0}
+.stats4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.stats4>div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+.stats4 b{display:block;font:700 24px var(--serif);color:var(--wine)}
+.stats4 span{font-size:12.5px;color:var(--ink2)}
+ul.tl{list-style:none;padding:0;margin:12px 0}
+ul.tl li{padding:6px 0 6px 18px;border-left:2px solid var(--line);position:relative}
+ul.tl li::before{content:"";position:absolute;left:-6px;top:14px;width:10px;height:10px;border-radius:50%;background:var(--wine)}
+section ul{padding-left:20px}
+section li{margin-bottom:6px}
+.gloss{display:grid;grid-template-columns:200px 1fr;gap:6px 16px;font-size:15px}
+.gloss dt{font-weight:700}
+.gloss dd{margin:0}
+.srcs{font-size:13.5px;padding-left:22px}
+.srcs li{margin-bottom:6px}
+.srcs a{word-break:break-all}
+sup.fn{font-size:10.5px;line-height:0;margin-left:1px}
+sup.fn a{text-decoration:none;color:var(--muted)}
+.foot{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+
+/* Телефон: всё в одну колонку */
+@media (max-width:680px){
+  h1{font-size:34px} h1 .latin{display:block;margin:4px 0 0}
+  .facts3,.cards2,.passport-wrap{grid-template-columns:1fr}
+  .stats4{grid-template-columns:1fr 1fr}
+  .gloss{grid-template-columns:1fr} .gloss dd{margin-bottom:8px}
+  table.data{display:block;overflow-x:auto}
+  .minimap{max-width:300px}
+}
+
+/* Печать и PDF: формат A4, без кнопок, разделы не рвутся посередине картинок */
+@page{size:A4;margin:14mm 13mm 16mm}
+@media print{
+  body{background:#fff;font-size:10pt;line-height:1.5}
+  .lead{font-size:11.5pt}
+  h1{font-size:30pt} h2{font-size:18pt} h3{font-size:13pt}
+  figure{padding:8px}
+  figure svg{max-width:150mm!important}
+  .minimap svg{max-width:62mm!important}
+  .passport-wrap{grid-template-columns:1fr 64mm}
+  tr{break-inside:avoid}
+  .page{max-width:none;padding:0}
+  .noprint{display:none!important}
+  figure,.plain,.card,.facts3,.stats4{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  h2{margin-top:26px}
+  a{color:inherit;text-decoration:none}
+  .srcs a::after{content:" — " attr(href);color:var(--muted);font-size:9pt}
+  .srcs a{word-break:break-all}
+  figure{border-color:#ddd}
+}
+
+/* =====================================================================
+   КАРКАС САЙТА: шапка, меню, поиск, хабы, сквозные разделы
+   ===================================================================== */
+.site{background:var(--wine);color:#fff;position:sticky;top:0;z-index:10}
+.site-in{max-width:1100px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.logo{color:#fff;text-decoration:none;font:700 18px var(--serif);white-space:nowrap}
+.menu{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.menu a{color:#fbe9ee;text-decoration:none;font-size:14px;padding:6px 10px;border-radius:6px}
+.menu a:hover,.menu a.on{background:rgba(255,255,255,.16);color:#fff}
+.search{position:relative;width:260px;max-width:100%}
+.search input{width:100%;padding:8px 12px;border-radius:8px;border:0;font:14px var(--sans)}
+.results{position:absolute;right:0;left:0;top:40px;background:#fff;border:1px solid var(--line);border-radius:10px;
+  box-shadow:0 8px 24px rgba(0,0,0,.15);max-height:70vh;overflow:auto}
+.results a{display:block;padding:8px 12px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);font-size:14px}
+.results a:hover{background:var(--wine-soft)}
+.results a i{color:var(--ink2)} .results a span{display:block;font-size:12px;color:var(--muted)}
+.r-empty{padding:10px 12px;color:var(--muted);font-size:14px}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.toc a{font-size:13px;text-decoration:none;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.toc a:hover{border-color:var(--wine)}
+.kids{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:10px 0}
+.kid{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;
+  text-decoration:none;color:var(--ink);font-size:15px}
+a.kid:hover{border-color:var(--wine);box-shadow:0 2px 10px rgba(142,27,58,.08)}
+.kid i{color:var(--ink2)}
+.kid-type{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--wine);font-weight:700;margin-bottom:2px}
+.kid-text{display:block;font-size:13.5px;color:var(--ink2);margin-top:4px;line-height:1.45}
+.kid.planned{background:transparent;border-style:dashed;color:var(--muted)}
+.hub-top,.home-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
+.home-grid{grid-template-columns:1fr 400px}
+.stats3{grid-template-columns:repeat(3,1fr)}
+.hero h1{font-size:40px}
+.tree{list-style:none;padding-left:18px;border-left:2px solid var(--line)}
+.tree>li{margin:6px 0}
+.tree .kid-type{display:inline;margin-left:6px}
+.tree.planned li{color:var(--muted)}
+ul.tl li.key::before{width:12px;height:12px;left:-7px;box-shadow:0 0 0 3px var(--wine-soft)}
+.tag{display:inline-block;font-size:12px;text-decoration:none;padding:1px 8px;border-radius:999px;background:var(--wine-soft);margin-left:4px}
+.cal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.month{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;min-height:90px}
+.month>b{text-transform:capitalize;font-family:var(--serif);font-size:16px}
+.month.good{border-color:#d9b9c2;background:#fdf7f9}
+.fest{margin-top:6px} .fest span{display:block;font-size:12px;color:var(--muted)}
+.best{margin-top:6px;font-size:12.5px;color:var(--ink2)}
+table.sortable th:hover{color:var(--wine)}
+@media (max-width:860px){
+  .hub-top,.home-grid{grid-template-columns:1fr}
+  .cal{grid-template-columns:1fr 1fr}
+  .search{width:100%}
+}
+@media print{ .site,.toc{display:none!important} }
+.muted-link{color:var(--ink2);border-bottom:1px dashed var(--muted);cursor:help}
+/* Телефон: шапка не «липнет», меню — одной прокручиваемой строкой под логотипом */
+@media (max-width:680px){
+  .site{position:static}
+  .site-in{gap:8px}
+  .menu{order:3;width:100%;flex-wrap:nowrap;overflow-x:auto;flex:none}
+  .menu a{white-space:nowrap}
+  .search{order:2}
+}
+
+/* ---------- Фильтры, дерево регионов, статьи (2026-11-13) ---------- */
+.filter{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;background:var(--card);border:1px solid var(--line);
+  border-radius:10px;padding:12px 14px;margin:16px 0}
+.filter label{display:flex;flex-direction:column;gap:3px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.filter select,.filter input{font:15px var(--sans);padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);min-width:220px}
+.f-q{flex:1} .f-q input{width:100%}
+.f-count{font-size:13px;color:var(--muted);padding-bottom:8px}
+.btn.small{padding:7px 12px;font-size:13px}
+.tree2 details.node{border-left:2px solid var(--line);margin:4px 0 4px 0;padding-left:12px}
+.tree2>details.node{border-left:3px solid var(--wine);background:var(--card);border-radius:0 10px 10px 0;padding:6px 12px}
+.tree2 summary{cursor:pointer;padding:5px 0;list-style:none}
+.tree2 summary::-webkit-details-marker{display:none}
+.tree2 summary::before{content:"▸";display:inline-block;width:16px;color:var(--wine);transition:transform .15s}
+.tree2 details[open]>summary::before{transform:rotate(90deg)}
+.tree2 summary .kid-type{display:inline;margin-right:4px}
+.tree2 .cnt{font-size:13px;color:var(--muted);margin-left:6px}
+.tree2 .open{font-size:13px;margin-left:8px;text-decoration:none}
+.node-kids{padding-left:10px}
+.leaf{padding:4px 0 4px 16px;font-size:15px}
+.leaf .kid-type{display:inline;margin-left:6px}
+.leaf.planned{color:var(--muted)}
+th[data-sort]::after{content:" " attr(data-sort);color:var(--wine)}
+.table-wrap{overflow-x:auto}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.chip{font:13px var(--sans);padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chip.on{background:var(--wine);color:#fff;border-color:var(--wine)}
+.rel-articles{font-size:14px;margin-top:8px}
+.art-h1{font-size:38px}
+.art{font-size:17px;line-height:1.7}
+[hidden]{display:none!important}
+@media (max-width:680px){.filter select,.filter input{min-width:0;width:100%}.filter label{width:100%}}
+
+/* =====================================================================
+   ИСПРАВЛЕНИЯ ПО РАЗБОРУ (2026-11-16)
+   ===================================================================== */
+/* 10. Шапка сайта по той же ширине, что и текст: логотип начинается ровно над текстом */
+.site-in{max-width:892px}
+.search{width:200px}
+.menu a{padding:6px 8px}
+
+/* 7. Соседи, у которых страницы ещё нет: серым, без подчёркивания — не похожи на ссылку */
+.soon{color:var(--muted)}
+.muted-link{border:0}
+
+/* 8. Строка «сколько готово» на страницах регионов */
+.hub-count{font-size:14px;color:var(--ink2);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;display:inline-block}
+
+/* 2. Оглавление сбоку + кнопки «Разделы» и «наверх» */
+.side-toc{display:none}
+.side-toc a{display:block;padding:4px 10px;font-size:13.5px;color:var(--ink2);text-decoration:none;border-left:2px solid var(--line)}
+.side-toc a:hover{color:var(--wine)}
+.side-toc a.on{color:var(--wine);border-left-color:var(--wine);font-weight:600}
+.side-toc .cap{padding:0 0 6px 10px}
+.float-btns{position:fixed;right:16px;bottom:16px;display:flex;gap:8px;z-index:20}
+.fbtn{font:600 14px var(--sans);background:var(--wine);color:#fff;border:0;border-radius:999px;padding:10px 16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);cursor:pointer;text-decoration:none;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrolled .fbtn{opacity:1;pointer-events:auto}
+/* Широкий экран: оглавление всегда видно слева от текста, кнопка «Разделы» не нужна */
+@media (min-width:1260px){
+  .side-toc{display:block;position:fixed;top:90px;left:calc(50% - 430px - 200px);width:180px;max-height:calc(100vh - 110px);overflow:auto}
+  #toc-btn{display:none}
+}
+/* Узкий экран: оглавление выезжает панелью по кнопке «Разделы» */
+@media (max-width:1259px){
+  .side-toc.open{display:block;position:fixed;right:16px;bottom:70px;width:240px;max-height:70vh;overflow:auto;background:#fff;
+    border:1px solid var(--line);border-radius:12px;padding:10px 6px;box-shadow:0 10px 30px rgba(0,0,0,.2);z-index:21}
+}
+
+/* 1. Диаграммы на телефоне: не сжимаем мельче 600 px (иначе подписи 4–5 px), а даём прокрутку вбок */
+@media (max-width:680px){
+  figure:not(.minimap){padding:10px 0 10px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  figure:not(.minimap) svg{min-width:600px}
+  figure:not(.minimap) figcaption{padding-right:10px;position:sticky;left:0;max-width:calc(100vw - 54px)}
+  .scroll-hint{display:block;font-size:12px;color:var(--wine);margin:0 0 6px;position:sticky;left:0}
+  sup.fn a{padding:0 2px}             /* 14. сноски чуть легче попадать пальцем */
+}
+.scroll-hint{display:none}
+@media (max-width:680px){figure .scroll-hint{display:block}}
+
+/* 4. Таблицы из 3+ столбцов на телефоне — карточками: «подпись столбца: значение» */
+@media (max-width:680px){
+  table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%}
+  table.stack{border:0;background:transparent}
+  table.stack thead{display:none}
+  table.stack tr{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:10px;padding:6px 0}
+  table.stack td{border:0;padding:4px 12px}
+  table.stack td:first-child{font-weight:700;font-size:15.5px}
+  table.stack td[data-label]:not(:first-child)::before{content:attr(data-label);display:block;font-size:11px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--muted);font-weight:700}
+  table.stack td:empty{display:none}
+  table.data.stack{display:block;overflow:visible}
+  .sort-m{display:flex!important}
+}
+.sort-m{display:none;gap:8px;align-items:center;font-size:13px;color:var(--ink2);margin:0 0 10px}
+.sort-m select{font:14px var(--sans);padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#fff}
+@media print{.side-toc,.float-btns,#nav-box{display:none!important}}
+/* шапка в ширину текста: компактнее, чтобы меню не переносилось на вторую строку */
+@media (min-width:681px){
+  .site-in{gap:12px;flex-wrap:nowrap}
+  .logo{font-size:16px}
+  .menu{flex-wrap:nowrap;gap:0}
+  .menu a{font-size:13.5px;padding:6px 7px}
+  .search{width:170px;flex:none}
+}
+@media (max-width:680px){.search{width:100%;order:2}}

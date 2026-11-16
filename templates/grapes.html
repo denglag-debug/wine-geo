@@ -1,0 +1,15 @@
+{#- grapes.html — сорта винограда и где они растут. -#}
+{% extends "base.html" %}
+{% block title %}Сорта — {{ SITE_NAME }}{% endblock %}
+{% block body %}
+<p class="kicker">Раздел</p>
+<h1>Сорта винограда</h1>
+<p class="lead">Список собирается из паспортов страниц аппелласьонов: какой сорт где главный, а где разрешён как добавка.</p>
+{% for name, uses in grapes %}
+<h2 id="{{ slug(name) }}">{{ name }} {% if info[name].latin %}<span class="latin">{{ info[name].latin }}</span>{% endif %}</h2>
+<p class="muted">{{ {'red': 'Красный сорт', 'white': 'Белый сорт', 'rose': 'Розовый сорт'}.get(info[name].color, 'Сорт') }}</p>
+<table class="data"><tr><th>Аппелласьон</th><th>Роль сорта</th></tr>
+  {% for p, role in uses %}<tr><td><a href="{{ p.url }}#grapes">{{ p.name }}</a></td><td>{{ role }}</td></tr>{% endfor %}
+</table>
+{% endfor %}
+{% endblock %}

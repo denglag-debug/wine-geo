@@ -1,0 +1,40 @@
+{#- regions.html — дерево: страны → регионы → AOC. Свёрнуто по умолчанию, есть поиск.
+    Сворачивание сделано стандартным элементом HTML <details>/<summary>: он работает
+    даже без JavaScript. Скрипт нужен только для поиска и кнопок «развернуть/свернуть всё». -#}
+{% extends "base.html" %}
+{% block title %}Регионы — {{ SITE_NAME }}{% endblock %}
+
+{# Счётчик готовых AOC внутри узла #}
+{% macro count(p) %}{% set n = ([p] + p.descendants())|selectattr('type','equalto','aoc')|list|length %}{% set pl = (p.data.planned or [])|length %}
+<span class="cnt">{% if p.type != 'aoc' %}{{ n }} AOC{% if pl %} · ещё {{ pl }} в планах{% endif %}{% endif %}</span>{% endmacro %}
+
+{% macro node(p) %}
+{% if p.children or p.data.planned %}
+<details class="node" data-name="{{ p.name }} {{ p.latin }}">
+  <summary><span class="kid-type">{{ TYPE_NAMES.get(p.type, '') }}</span> <b>{{ p.name }}</b>{% if p.latin %} <i class="muted">{{ p.latin }}</i>{% endif %}
+    {{ count(p) }} <a class="open" href="{{ p.url }}">открыть страницу →</a></summary>
+  <div class="node-kids">
+    {% for c in p.children %}{{ node(c) }}{% endfor %}
+    {% for x in p.data.planned or [] %}<div class="leaf planned" data-name="{{ x.name }} {{ x.latin }}">{{ x.name }} <i>{{ x.latin }}</i> <span class="muted">— страницы пока нет</span></div>{% endfor %}
+  </div>
+</details>
+{% else %}
+<div class="leaf" data-name="{{ p.name }} {{ p.latin }}"><a href="{{ p.url }}"><b>{{ p.name }}</b></a>{% if p.latin %} <i class="muted">{{ p.latin }}</i>{% endif %}
+  <span class="kid-type">{{ TYPE_NAMES.get(p.type, '') }}</span></div>
+{% endif %}
+{% endmacro %}
+
+{% block body %}
+<p class="kicker">Раздел</p>
+<h1>Регионы</h1>
+<p class="lead">Всё дерево энциклопедии: {{ n_aoc }} готовых аппелласьонов. Нажмите на строку, чтобы раскрыть её, или найдите регион по названию.</p>
+<div class="filter noprint" id="tree-filter">
+  <label class="f-q"><span>Найти</span><input type="search" id="tree-q" placeholder="Название региона или AOC, по-русски или латиницей"></label>
+  <button type="button" class="btn ghost small" data-tree="open">Развернуть всё</button>
+  <button type="button" class="btn ghost small" data-tree="close">Свернуть всё</button>
+</div>
+<div class="tree2" id="tree">
+  {% for c in countries %}{{ node(c) }}{% endfor %}
+</div>
+<p class="note" id="tree-empty" hidden>Ничего не нашлось.</p>
+{% endblock %}

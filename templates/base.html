@@ -1,0 +1,34 @@
+{#- base.html — общий «каркас» любой страницы: шапка с меню и поиском, подвал.
+    Остальные шаблоны «наследуют» его: {% extends "base.html" %} и заполняют блок body.
+    root — относительный путь до корня сайта (например, "../../../"). -#}
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+<link rel="stylesheet" href="{{ root }}static/style.css">
+<script src="{{ root }}static/search-index.js" defer></script>
+<script src="{{ root }}static/site.js" defer></script>
+</head>
+<body data-root="{{ root }}">
+<header class="site noprint">
+  <div class="site-in">
+    <a class="logo" href="{{ root }}index.html">🍷 {{ SITE_NAME }}</a>
+    <nav class="menu" aria-label="Разделы сайта">
+      {% for href, label in MENU %}
+      <a href="{{ root }}{{ href }}"{% if active == href %} class="on"{% endif %}>{{ label }}</a>
+      {% endfor %}
+    </nav>
+    <div class="search">
+      <input type="search" id="q" placeholder="Поиск по сайту…" autocomplete="off" aria-label="Поиск по сайту">
+      <div id="results" class="results" hidden></div>
+    </div>
+  </div>
+</header>
+<div class="page">
+{% block body %}{% endblock %}
+<footer class="foot">{{ SITE_NAME }} · собрано {{ TODAY }}{% block foot %}{% endblock %}</footer>
+</div>
+</body>
+</html>

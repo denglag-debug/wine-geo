@@ -1,0 +1,51 @@
+{#- home.html — главная страница. -#}
+{% extends "base.html" %}
+{% block body %}
+<section class="hero">
+  <p class="kicker">Энциклопедия винных регионов</p>
+  <h1>Вино через географию, историю и путешествия</h1>
+  <p class="lead">Каждый винный регион и аппелласьон — на отдельной странице с одинаковым набором разделов:
+  сверху коротко и понятно, ниже подробно. Все цифры — с годом и источником. Любую страницу можно скачать в PDF
+  или распечатать короткую карточку.</p>
+</section>
+
+<div class="home-grid">
+  <section>
+    <h2>Страны</h2>
+    <div class="kids">
+      {% for c in countries %}
+      <a class="kid" href="{{ c.url }}"><span class="kid-type">Страна</span><b>{{ c.name }}</b>
+        <span class="kid-text">готовых аппелласьонов: {{ c.descendants()|selectattr('type','equalto','aoc')|list|length }} · регионов в планах: {{ (c.data.planned or [])|length }}</span></a>
+      {% endfor %}
+    </div>
+    {% if articles %}
+    <h2>Новые статьи</h2>
+    <div class="kids">
+      {% for a in articles %}<a class="kid" href="{{ a.url }}"><span class="kid-type">{{ ru_date(a.date) }}</span><b>{{ a.title }}</b><span class="kid-text">{{ a.summary }}</span></a>{% endfor %}
+    </div>
+    {% endif %}
+    <h2>Недавно обновлено</h2>
+    <div class="kids">
+      {% for p in recent %}
+      <a class="kid" href="{{ p.url }}"><span class="kid-type">{{ p.ancestors()|map(attribute='name')|join(' → ') }}</span>
+        <b>{{ p.name }}</b> <i>{{ p.latin }}</i><span class="kid-text">{{ first_sentence(p.data.summary) }}</span></a>
+      {% endfor %}
+    </div>
+  </section>
+  {% if home_maps %}<div class="home-maps">
+    {# по одной мини-карте на страну; подпись — только под последней, чтобы не повторять #}
+    {% for c, svg in home_maps %}<figure class="minimap">{{ svg }}{% if loop.last %}<figcaption>Одна точка — один регион, цифра — сколько в нём готовых страниц. Щёлкните, чтобы открыть.</figcaption>{% endif %}</figure>{% endfor %}
+  </div>{% endif %}
+</div>
+
+<section>
+  <h2>Разделы</h2>
+  <div class="kids">
+    <a class="kid" href="history.html"><b>История</b><span class="kid-text">события всех регионов на одной ленте, по векам</span></a>
+    <a class="kid" href="stats.html"><b>Статистика</b><span class="kid-text">площади, производство, цвета вин — таблица всех AOC</span></a>
+    <a class="kid" href="grapes.html"><b>Сорта</b><span class="kid-text">где растёт каждый сорт винограда</span></a>
+    <a class="kid" href="glossary.html"><b>Словарь</b><span class="kid-text">все термины сайта простыми словами</span></a>
+    <a class="kid" href="articles.html"><b>Статьи</b><span class="kid-text">темы, сравнения и истории, которые не помещаются в страницу региона</span></a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{#- articles.html — список статей с фильтром по теме и месту. -#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}Статьи — {{ SITE_NAME }}{% endblock %}
+{% block body %}
+<p class="kicker">Раздел</p>
+<h1>Статьи</h1>
+<p class="lead">Тексты, которые не помещаются в шаблон страницы региона: темы, сравнения, истории, разборы.
+Каждая статья привязана к месту — её видно и здесь, и на страницах этих регионов.</p>
+{% if tags %}
+<div class="chips noprint" data-tags><button type="button" class="chip on" data-tag="">Все темы</button>
+  {% for t in tags %}<button type="button" class="chip" data-tag="{{ t }}">{{ t }}</button>{% endfor %}
+</div>
+{% endif %}
+{{ m.place_filter('Слово из названия или описания') }}
+<div class="kids arts" data-items>
+  {% for a in articles %}
+  <a class="kid" href="{{ a.url }}" data-path="{{ a.places|join(' ') }}" data-tags="{{ a.tags|join('|') }}">
+    <span class="kid-type">{{ ru_date(a.date) }}{% if a.tags %} · {{ a.tags|join(', ') }}{% endif %}</span>
+    <b>{{ a.title }}</b><span class="kid-text">{{ a.summary }}</span></a>
+  {% endfor %}
+</div>
+<p class="note" data-empty {% if articles %}hidden{% endif %}>Статей пока нет.</p>
+{% endblock %}

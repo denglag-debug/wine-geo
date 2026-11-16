@@ -1,0 +1,31 @@
+{#- stats.html — сравнительная таблица всех AOC: фильтр по месту, поиск, сортировка. -#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}Статистика — {{ SITE_NAME }}{% endblock %}
+{% block body %}
+<p class="kicker">Раздел</p>
+<h1>Статистика</h1>
+<p class="lead">Ключевые цифры всех готовых аппелласьонов. Выберите регион, найдите аппелласьон или сорт,
+щёлкните по заголовку столбца — таблица отсортируется (повторный щелчок — в обратном порядке).
+Источники и годы данных — на странице каждого аппелласьона.</p>
+{{ m.place_filter('Название, сорт, цвет вина…') }}
+<div class="table-wrap">
+<table class="data sortable stack">
+  <thead><tr>
+    <th>Название</th><th>Где</th><th data-num>Площадь, га</th><th data-num>Производство, гл/год</th>
+    <th data-num>Бутылок, млн</th><th>Цвета</th><th>Главный сорт</th><th data-num>Статус с</th><th data-num>Урожайность по закону, гл/га</th>
+  </tr></thead>
+  <tbody data-items>
+  {% for r in rows %}
+  <tr data-path="{{ r.page.slugs|join('/') }}"><td data-label="Название"><a href="{{ r.page.url }}">{{ r.page.name }}</a> <i class="muted">{{ r.page.latin }}</i></td><td data-label="Где">{{ r.chain }}</td>
+    <td data-label="Площадь, га" data-v="{{ r.area or '' }}">{{ fmt(r.area) }}</td>
+    <td data-label="Производство, гл/год" data-v="{{ r.hl or '' }}">{{ fmt(r.hl) }} {% if r.period %}<span class="muted">({{ r.period }})</span>{% endif %}</td>
+    <td data-label="Бутылок, млн" data-v="{{ r.bottles or '' }}">{{ fmt(r.bottles, 1) }}</td>
+    <td data-label="Цвета">{{ r.colors }}</td><td data-label="Главный сорт">{{ r.grape }}</td><td data-label="Статус с" data-v="{{ r.year or '' }}">{{ r.status }} {{ r.year or '—' }}</td>
+    <td data-label="Урожайность по закону, гл/га" data-v="{{ r.yield_legal or '' }}">{{ r.yield_legal or '—' }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<p class="note" data-empty hidden>Ничего не нашлось.</p>
+{% endblock %}

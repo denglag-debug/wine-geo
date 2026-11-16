@@ -1,0 +1,23 @@
+{#- tourism.html — календарь винных праздников и «когда ехать». -#}
+{% extends "base.html" %}
+{% block title %}Туризм — {{ SITE_NAME }}{% endblock %}
+{% block body %}
+<p class="kicker">Раздел</p>
+<h1>Винный туризм</h1>
+<p class="lead">Когда куда ехать: праздники вина по месяцам и лучшие месяцы для поездки — по данным раздела «Туризм» каждой страницы.</p>
+<h2>Календарь</h2>
+<div class="cal">
+  {% for mo in months %}
+  <div class="month{% if mo.best %} good{% endif %}">
+    <b>{{ mo.name }}</b>
+    {% for f in mo.fests %}<div class="fest">🎉 <a href="{{ f.page.url }}#travel">{{ f.name }}</a><span>{{ f.date }}</span></div>{% endfor %}
+    {% if mo.best %}<div class="best">хорошо ехать: {% for p in mo.best %}<a href="{{ p.url }}#travel">{{ p.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</div>{% endif %}
+  </div>
+  {% endfor %}
+</div>
+<h2>Что посмотреть</h2>
+{% for p, items in sights %}
+<h3><a href="{{ p.url }}#travel">{{ p.name }}</a> <span class="muted">· {{ p.ancestors()|map(attribute='name')|join(' → ') }}</span></h3>
+<ul>{% for s in items %}<li><b>{{ s.name }}</b> — {{ strip(s.text) }}</li>{% endfor %}</ul>
+{% endfor %}
+{% endblock %}

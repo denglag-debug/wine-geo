@@ -1,0 +1,70 @@
+{#- _macros.html — маленькие повторяющиеся кусочки разметки («макросы» = функции шаблона). -#}
+
+{# Хлебные крошки: Франция › Долина Луары › Турень › Бургёй #}
+{% macro crumbs(page, root) %}
+<nav class="crumbs" aria-label="Где мы">
+  <a href="{{ root }}index.html">Главная</a> <span>›</span>
+  {% for p in page.ancestors() %}<a href="{{ root }}{{ p.url }}">{{ p.name }}</a> <span>›</span> {% endfor %}
+  <b>{{ page.name }}</b>
+</nav>
+{% endmacro %}
+
+{# Блок «Выше / Рядом / Ниже» — считается из папок #}
+{% macro related_box(r, root) %}
+<div class="related">
+  <div><span class="rel-tag">Выше</span>
+    {% if r.up %}<a href="{{ root }}{{ r.up.url }}">{{ r.up.name }}</a> <span class="muted">({{ TYPE_NAMES.get(r.up.type, '')|lower }})</span>{% else %}<a href="{{ root }}regions.html">все страны</a>{% endif %}</div>
+  <div><span class="rel-tag">Рядом</span>
+    {% for name, url, note in r.side_items %}{% if url %}<a href="{{ root }}{{ url }}">{{ name }}</a>{% else %}<span class="soon" title="{{ note }}">{{ name }}</span>{% endif %}{% if url and note %} <span class="muted">({{ note }})</span>{% elif not url and note and note != 'страница пока не готова' %} <span class="muted">({{ note }})</span>{% endif %}{% if not loop.last %} · {% endif %}{% endfor %}
+    {% if not r.side_items %}<span class="muted">других страниц этого уровня пока нет</span>{% endif %}</div>
+  <div><span class="rel-tag">Ниже</span>
+    {% for c in r.down %}<a href="{{ root }}{{ c.url }}">{{ c.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %}
+    {% if not r.down %}<span class="muted">{{ r.down_note or 'нет' }}</span>{% endif %}</div>
+</div>
+{% endmacro %}
+
+{# Список источников — внизу каждой страницы #}
+{% macro sources_list(sources, d) %}
+{% if sources %}
+<section id="sources">
+  <h2>Источники</h2>
+  <p class="note">Дата обновления страницы: {{ ru_date(d.get('updated') or d.get('date')) }}. У каждой цифры на странице — номер источника в квадратных скобках и год данных.</p>
+  <ol class="srcs">
+    {% for s in sources %}<li id="s{{ loop.index }}">{{ s }}</li>
+    {% endfor %}
+  </ol>
+  {% if d.sources_note %}<p class="note">{{ d.sources_note }}</p>{% endif %}
+</section>
+{% endif %}
+{% endmacro %}
+
+{# Панель фильтра «Где + поиск». Используется в Истории, Статистике, Статьях.
+   Каждый фильтруемый элемент на странице помечается атрибутами:
+     data-path="france/loire/touraine/bourgueil"  — к какому месту относится;
+     data-text="…"                                 — текст для поиска (необязательно, иначе берётся видимый текст).
+   Логику выполняет static/site.js (функция setupFilter). Выбор места запоминается в адресе:
+   history.html#france/loire — так со страницы региона можно сразу открыть «историю только этого региона». #}
+{% macro place_filter(placeholder='Поиск…', with_places=True) %}
+<div class="filter noprint" data-filter>
+  {% if with_places %}
+  <label class="f-where"><span>Где</span>
+    <select data-place>
+      <option value="">Вся энциклопедия</option>
+      {% for pl in PLACES %}<option value="{{ pl.path }}">{{ '   ' * (pl.depth - 1) }}{{ pl.name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  {% endif %}
+  <label class="f-q"><span>Искать</span><input type="search" data-q placeholder="{{ placeholder }}"></label>
+  <span class="f-count" data-count></span>
+</div>
+{% endmacro %}
+
+{# Ссылки на статьи по теме — на страницах регионов и AOC #}
+{% macro related_articles(articles, root) %}
+{% if articles %}
+<div class="rel-articles noprint"><span class="rel-tag">Статьи</span>
+  {% for a in articles %}<a href="{{ root }}{{ a.url }}">{{ a.title }}</a>{% if not loop.last %} · {% endif %}{% endfor %}
+</div>
+{% endif %}
+{% endmacro %}

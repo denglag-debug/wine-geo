@@ -1,0 +1,25 @@
+{#- history.html — общая лента истории с фильтром по месту. -#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}История — {{ SITE_NAME }}{% endblock %}
+{% block body %}
+<p class="kicker">Раздел</p>
+<h1>История вина</h1>
+<p class="lead">События из разделов «История» всех страниц, по векам. Выберите страну, регион или AOC — останутся только их события.
+Подробности и источники — на странице региона (ссылка у каждого события).</p>
+{{ m.place_filter('Слово из события: аббатство, филлоксера…') }}
+<div data-items>
+{% for c, evs in centuries %}
+<section class="century" data-group>
+  <h2>{{ c }}</h2>
+  <ul class="tl">
+    {% for e in evs %}
+    <li{% if e.key %} class="key"{% endif %} data-path="{{ e.page.slugs|join('/') }}"><b>{{ e.date }}.</b> {{ e.text }}
+      <a class="tag" href="{{ e.page.url }}#history">{{ e.page.name }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}
+</div>
+<p class="note" data-empty hidden>Для этого места событий пока нет.</p>
+{% endblock %}
