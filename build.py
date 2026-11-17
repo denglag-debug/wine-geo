@@ -427,8 +427,18 @@ env.globals["ru_date"] = ru_date
 # Запуск
 # =============================================================================
 def main():
+    # Флаг --pdf включает сборку PDF. По умолчанию PDF НЕ делаем (решение Дениса, 2026-11-17:
+    # откладываем до готовности остальных страниц) — это самая долгая и дорогая часть сборки.
+    with_pdf = "--pdf" in sys.argv[1:]
     print("Читаю content/ …")
     countries, pages = load_tree(CONTENT)
+    if not with_pdf:
+        # Кнопки «auto» (их файл делает make_pdf.js) прячем: иначе они вели бы на несуществующий PDF.
+        # Готовые файлы-картинки/карточки (без auto) остаются как были.
+        for p in pages:
+            if p.data.get("downloads"):
+                p.data["downloads"] = [f for f in p.data["downloads"] if not f.get("auto")]
+        print("  PDF не собираются (чтобы включить: python3 build.py --pdf)")
     print(f"  страниц: {len(pages)} (AOC: {sum(p.type == 'aoc' for p in pages)})")
 
     if os.path.exists(OUT):
@@ -450,7 +460,8 @@ def main():
     build_search(pages, terms, articles)
     print("  ✓ сквозные разделы и поиск")
 
-    make_pdfs(pages)
+    if with_pdf:
+        make_pdfs(pages)
 
     print("\nПроверка:" if problems else "\nПроверка: замечаний нет.")
     for msg in problems:
