@@ -1,0 +1,19 @@
+# page.yaml — хаб «Имерети» (упрощённый шаблон: регион).
+# ЗАГЛУШКА: только короткое описание и список наименований. Паспорт региона — при наполнении.
+type: region
+name: Имерети
+latin: Imereti
+order: 3                       # порядок в списке регионов на странице «Грузия»
+highlight_deps: ["GE-IM"]      # какие края закрасить на карте Грузии (коды ISO)
+summary: >-
+  Имерети — главный винный регион западной Грузии, вокруг города Кутаиси. Здесь три наименования места происхождения: Свири, Обча и Сазано Оцханури.[1, 2] Белое Свири делают из местных сортов Цоликоури, Цицка и Крахуна, красное Сазано Оцханури — из сорта Оцханури Сапере.[2, 3]
+draft_note: "Заглушка: подробная страница региона появится при наполнении."
+children_title: Наименования места происхождения (PDO)
+planned:                       # наименования, страниц которых ещё нет (показываются серым)
+  - {name: Свири, latin: Sviri}
+  - {name: Обча, latin: Obcha}
+  - {name: Сазано Оцханури, latin: Sazano Otskhanuri}
+sources:
+  - "Национальное агентство вина Грузии. Годовой отчёт 2025 (англ.). [wine.gov.ge](https://wine.gov.ge/En/Files/Download/15579)"   # [1]
+  - "Caucasus Business Week. Sazano's Otskhanuri added to the list of Georgian wines registered with PDO (англ.). [cbw.ge](https://cbw.ge/wine/sazanos-otskhanuri-added-to-the-list-of-georgian-wines-registered-with-protected-designation-of-origin)"   # [2]
+  - "Wikipedia. List of Georgian wine appellations (англ.) — сорта и типы вин по наименованиям. [en.wikipedia.org](https://en.wikipedia.org/wiki/List_of_Georgian_wine_appellations)"   # [3]
