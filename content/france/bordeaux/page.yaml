@@ -1,0 +1,20 @@
+# page.yaml — хаб «Бордо» (упрощённый шаблон: регион). Черновик каркаса (создан 17.11.2026
+# вместе со страницей Монтань-Сент-Эмильон). Полный паспорт региона — при наполнении.
+type: region
+name: Бордо
+latin: Bordeaux
+summary: >-
+  Бордо — крупнейший винодельческий регион Франции по площади виноградников под AOC: почти весь
+  департамент Жиронда. В 2025 году здесь было 91 543 га виноградников, из них 86 600 га — под
+  наименованиями AOP.[1] Регион делят по рекам: левый берег Гаронны и Жиронды (Медок, Грав),
+  «междуречье» Антр-де-Мер и правый берег Дордони — Либурне с Сент-Эмильоном и Помролем.
+draft_note: "Черновик: паспорт региона с цифрами, историей и картой всех AOC появится при наполнении."
+children_title: Субрегионы
+planned:
+  - {name: Медок, latin: Médoc}
+  - {name: Грав и Пессак-Леоньян, latin: Graves}
+  - {name: Сотерн и Барсак, latin: Sauternes}
+  - {name: Антр-де-Мер, latin: Entre-Deux-Mers}
+  - {name: Блай и Бур, latin: Blaye & Bourg}
+sources:
+  - "Agreste Nouvelle-Aquitaine. Essentiel n°80 «La filière viticole girondine», 2026 (площадь 2025). [draaf.nouvelle-aquitaine.agriculture.gouv.fr](https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/IMG/pdf/essentiel_no80_-_la_filiere_viticole_girondine___chiffres_cles.pdf)"   # [1]

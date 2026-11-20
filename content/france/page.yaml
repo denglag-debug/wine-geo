@@ -15,10 +15,9 @@ children_title: Винные регионы
 map:                           # настройки мини-карт страны (главная, хабы, мини-карта в паспорте AOC)
   bbox: [-5.3, 9.7, 41.2, 51.2]          # рамка: долгота от/до, широта от/до
   capital: ["Париж", 2.35, 48.86]        # столица — точка для ориентира
-  rivers: ["Loire"]                       # какие реки рисовать (имена из geo/rivers.geojson)
+  rivers: ["Loire", "Garonne", "Dordogne"]  # какие реки рисовать (имена из geo/rivers.geojson)
   river_label: ["Луара", 0.9, 46.85]      # подпись реки и где её поставить
 planned:                       # регионы, страниц которых ещё нет (показываются серым)
-  - {name: Бордо, latin: Bordeaux}
   - {name: Бургундия, latin: Bourgogne}
   - {name: Шампань, latin: Champagne}
   - {name: Долина Роны, latin: Vallée du Rhône}
