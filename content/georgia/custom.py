@@ -16,7 +16,7 @@ import json
 import os
 from html import escape
 
-from charts import _svg_open, _proj, _rings, _poly_path, INK, INK2, MUTED, PAPER, BLUE
+from charts import _svg_open, _proj, _rings, _poly_path, INK, INK2, PAPER, BLUE
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -46,24 +46,19 @@ def _fill(n):
 
 def regions_map():
     W = 760
-    x0, x1, y0, y1 = 39.9, 46.8, 41.0, 43.65          # рамка карты: долгота от/до, широта от/до
+    # рамка карты (долгота от/до, широта от/до) — та же, что в блоке map: страницы «Грузия».
+    # Контур страны дан без Абхазии и Южной Осетии — решение Дениса от 17.11.2026.
+    x0, x1, y0, y1 = 41.4, 46.8, 41.0, 43.3
     P, H, _ = _proj(x0, x1, y0, y1, W)                 # P(долгота, широта) → точка на картинке
     feats = json.load(open(os.path.join(HERE, "geo", "regions.geojson"), encoding="utf-8"))["features"]
     by_code = {f["properties"]["code"]: f for f in feats}
-    used = set()
     out = [_svg_open(W, round(H), "Карта винных регионов Грузии")]
 
     # 1) заливка регионов
     for name, codes, n, _pos in WINE_REGIONS:
         for c in codes:
-            used.add(c)
             out.append(f'<path d="{_poly_path(P, _rings(by_code[c]["geometry"]))}" fill="{_fill(n)}" '
                        f'stroke="#fff" stroke-width="1.2"><title>{escape(name)}: PDO — {n}</title></path>')
-    # края, которых нет в таблице (Абхазия): серым, данных нет
-    for code, f in by_code.items():
-        if code not in used:
-            out.append(f'<path d="{_poly_path(P, _rings(f["geometry"]))}" fill="#f6f2ec" stroke="#d9d0c5" '
-                       f'stroke-width="1" stroke-dasharray="4 3"><title>{escape(f["properties"]["nom"])}: нет данных</title></path>')
 
     # 2) реки (Кура и Алазани) — для ориентира
     riv = json.load(open(os.path.join(HERE, "geo", "rivers.geojson"), encoding="utf-8"))["features"]
@@ -90,8 +85,5 @@ def regions_map():
         sub = f"PDO: {n}" if n else "PDO пока нет"
         out.append(f'<text x="{x:.1f}" y="{y + 15:.1f}" text-anchor="middle" font-size="11.5" fill="{INK2}" '
                    f'stroke="{PAPER}" stroke-width="3" paint-order="stroke">{sub}</text>')
-    ax, ay = P(41.15, 43.05)
-    out.append(f'<text x="{ax:.1f}" y="{ay:.1f}" text-anchor="middle" font-size="12" fill="{MUTED}">Абхазия</text>'
-               f'<text x="{ax:.1f}" y="{ay + 14:.1f}" text-anchor="middle" font-size="10.5" fill="{MUTED}">нет данных</text>')
     out.append("</svg>")
     return "".join(out)

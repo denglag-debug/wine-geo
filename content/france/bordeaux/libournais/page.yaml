@@ -1,0 +1,24 @@
+# page.yaml — хаб «Либурне» (упрощённый шаблон: субрегион). Черновик каркаса (17.11.2026).
+# Либурне — «правый берег» Бордо вокруг города Либурн: Сент-Эмильон, Помроль, Фронсак и их соседи.
+type: subregion
+name: Либурне
+latin: Libournais
+summary: >-
+  Либурне — правый берег Бордо вокруг города Либурн, у слияния рек Иль и Дордонь. Здесь
+  царствует Мерло: на глинах и известняке он даёт мягкие, округлые красные вина. Самые известные
+  имена — Сент-Эмильон и Помроль; вокруг Сент-Эмильона лежат четыре «сателлита», которым разрешено
+  добавлять его имя к своему: Монтань, Люссак, Пюисеген и Сен-Жорж.[1]
+draft_note: "Черновик: паспорт субрегиона, карта всех AOC и климат появятся при наполнении."
+children_title: Аппелласьоны
+planned:
+  - {name: Сент-Эмильон, latin: Saint-Émilion}
+  - {name: Сент-Эмильон Гран Крю, latin: Saint-Émilion Grand Cru}
+  - {name: Помроль, latin: Pomerol}
+  - {name: Лаланд-де-Помроль, latin: Lalande-de-Pomerol}
+  - {name: Люссак-Сент-Эмильон, latin: Lussac-Saint-Émilion}
+  - {name: Пюисеген-Сент-Эмильон, latin: Puisseguin-Saint-Émilion}
+  - {name: Сен-Жорж-Сент-Эмильон, latin: Saint-Georges-Saint-Émilion}
+  - {name: Фронсак, latin: Fronsac}
+  - {name: Канон-Фронсак, latin: Canon-Fronsac}
+sources:
+  - "The Wine Cellar Insider. Saint-Émilion Satellite Appellations — Complete Guide. [thewinecellarinsider.com](https://www.thewinecellarinsider.com/bordeaux-wine-producer-profiles/bordeaux/satellite-appellations/st-emilion-satellite-appellations-bordeaux-wine-guide/)"   # [1]
